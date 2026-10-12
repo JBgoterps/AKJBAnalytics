@@ -139,7 +139,7 @@ function defRanks(m){const keep=K,kp=K.map(c=>[c.p,c.tests.map(t=>t.th)]);model=
 K.forEach(c=>{c.p=c.p0;c.tests.forEach(t=>t.th=t.th0)});const o={};YEARS.forEach(y=>{o[y]={};rank(y).forEach(x=>o[y][x.i]=x.pos)});
 K.forEach((c,i)=>{c.p=save[i][0];c.tests.forEach((t,j)=>t.th=save[i][1][j])});return o}
 const cm=model;M.champ.dr=defRanks('champ');M.ff.dr=defRanks('ff');model='champ';K=M.champ.K;
-const OP={'>=':'≥','<=':'≤','<':'<','>':'over'};
+const OP={'>=':'≥','<=':'≤','<':'&lt;','>':'over'};
 const tshow=(t,c,i,j)=>t.txt?t.txt:t.hide?'':`${lb(t)} ${OP[t.op]} <input type="number" class="th" id="t${i}_${j}" value="${t.th}" step="any" aria-label="${c.n} cutoff">`;
 function controls(){const m=M[model];let h='';m.C.forEach(c=>{if(c.s){h+=`<div class="sec">${c.s}</div>`;return}const i=c.i;
 const ti=c.tests.map((t,j)=>tshow(t,c,i,j)).filter(Boolean).join(c.or?' or ':' and ');
@@ -158,8 +158,8 @@ $('#rs').onclick=()=>{LS.n=30;LS.k=1;CP.v=6;DW.w=5;TM.v=4.6;NP.v=35;K.forEach(c=
 const tip=$('#tip');
 function showTip(e){const s=e.target.closest&&e.target.closest('.seg');if(!s){tip.style.display='none';return}
 const r=Y[cur].rows[+s.dataset.i],c=K[+s.dataset.j],v=pts(c,r),vis=c.tests.filter(t=>t.txt||!t.hide);
-const rule=vis.length?vis.map(t=>t.txt||`${lb(t)} ${OP[t.op]} ${t.th}`).join(c.or?' or ':' and '):c.n;
-const team=vis.length?vis.map(t=>t.txt?`offense #${r[4]} vs defense #${r[6]}`:`${lb(t)} ${tv(t,r)}`).join(', '):'';
+const rule=vis.length?vis.map((t,i)=>t.txt||(i>0&&!c.or&&lb(vis[i-1])===lb(t)?`${OP[t.op]} ${t.th}`:`${lb(t)} ${OP[t.op]} ${t.th}`)).join(c.or?' or ':' and '):c.n;
+const seen=new Set();const team=vis.length?vis.map(t=>{const k=t.txt?'__txt':lb(t);if(seen.has(k))return null;seen.add(k);return t.txt?`offense #${r[4]} vs defense #${r[6]}`:`${lb(t)} ${tv(t,r)}`}).filter(Boolean).join(', '):'';
 const lsn=c.tests.some(t=>t.ix===9)&&r[2]>=LS.n?`<br>Net rating ${LS.n} or more: loss cutoff is ${LS.k} higher`:'';
 tip.innerHTML=`<b>${c.n}</b> <span class="tp">${v>0?'+':'−'}${Math.abs(v)}</span><br>Rule: ${rule}${c.mode==='loss'?' (per loss)':c.mode==='dr'?' (per point below)':c.mode==='net'?' (0.1 per 0.1 over, rounded)':c.pen?' (counts half for teams with the net rating bonus)':''}${team?`<br>${nm(r[0])}: ${team}`:`<br>${nm(r[0])}`}${lsn}`;
 tip.style.display='block';const w=tip.offsetWidth,h=tip.offsetHeight;let x=e.clientX+14,y=e.clientY+16;if(x+w>innerWidth-8)x=innerWidth-w-8;if(y+h>innerHeight-8)y=e.clientY-h-12;tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px'}
