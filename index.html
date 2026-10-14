@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>CBB Tournament Predictor</title>
-<link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f4ef;--panel:#fff;--ink:#16213a;--mute:#6b7285;--line:#dcdad0;--pos:#16213a;--neg:#c2452d;--up:#1f7a4d;--dn:#c2452d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10162a;--panel:#18203a;--ink:#eceae0;--mute:#9aa1b5;--line:#2c3556;--up:#5fd29a;--dn:#ff8d73;--neg:#ff8d73}}
 :root[data-theme="dark"]{--bg:#10162a;--panel:#18203a;--ink:#eceae0;--mute:#9aa1b5;--line:#2c3556;--up:#5fd29a;--dn:#ff8d73;--neg:#ff8d73}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Signika,system-ui,sans-serif}
-h1,h2,.num{font-family:Signika,system-ui,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 'Schibsted Grotesk',system-ui,sans-serif}
+h1,h2,.num{font-family:'Schibsted Grotesk',system-ui,sans-serif}
 header{padding:28px 24px 8px;max-width:1280px;margin:auto}h1{font-size:44px;line-height:1;margin:0 0 6px;font-weight:700}
 header p{margin:0;color:var(--mute);max-width:70ch}
 main{display:grid;grid-template-columns:340px 1fr;gap:20px;max-width:1280px;margin:16px auto 40px;padding:0 24px;align-items:start}
@@ -30,11 +30,11 @@ button{cursor:pointer}button:hover{border-color:var(--ink)}:focus-visible{outlin
 .seg{position:absolute;top:2px;height:12px}
 .leg{display:flex;flex-wrap:wrap;gap:4px 14px;padding:10px 12px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}.leg span{display:inline-flex;gap:5px;align-items:center}.leg i{width:10px;height:10px;border-radius:2px}
 .note{font-size:12px;color:var(--mute);padding:10px 12px;border-top:1px solid var(--line)}
-.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}.tab{font-family:Signika,system-ui,sans-serif;font-size:20px;font-weight:700;padding:4px 16px}.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}.tab{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:20px;font-weight:700;padding:4px 16px}.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 :root{--gold-bg:#fff0b8;--gold-ink:#3a2e00;--gold-line:#c9a227}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold-bg:#4a3b0c;--gold-ink:#ffe08a}}:root[data-theme="dark"]{--gold-bg:#4a3b0c;--gold-ink:#ffe08a}
 aside{max-height:calc(100vh - 16px);overflow:auto}@media(max-width:860px){aside{max-height:none}}
 .ch{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;margin:4px 0;padding:6px 10px;border:1px solid var(--gold-line);background:var(--gold-bg);color:var(--gold-ink);border-radius:5px}.ch:hover{border-color:var(--gold-ink)}.ch b{font-weight:500}.ch .num{font-size:22px;font-weight:700}.ch small{display:block;font-size:12px;opacity:.85}.yr{border:1px solid var(--line);border-radius:6px;margin:6px 0;padding:4px}.yr.on{border-color:var(--ink)}.top{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:var(--bg);border-radius:4px;padding:6px 8px}.top .num{font-size:22px;font-weight:700}.top small{display:block;font-size:12px;color:var(--mute)}.top.gold{background:var(--gold-bg);color:var(--gold-ink)}.top.gold small{color:var(--gold-ink);opacity:.85}.ch{font-size:12px;margin:4px 0 0;padding:3px 8px}
-.chh{font-family:Signika,system-ui,sans-serif;font-size:22px;font-weight:700;margin:0 0 2px}
+.chh{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:22px;font-weight:700;margin:0 0 2px}
 .r.gold{background:var(--gold-bg);color:var(--gold-ink);box-shadow:inset 4px 0 0 var(--gold-line)}.r.gold .nm{font-weight:700}.r.gold .mv .up,.r.gold .mv .dn{filter:none}
 .sd{font-size:12px;color:var(--mute);margin-left:5px;font-weight:400}.r.gold .sd{color:var(--gold-ink);opacity:.8}
 #tip{position:fixed;z-index:20;display:none;pointer-events:none;max-width:270px;background:var(--ink);color:var(--bg);padding:8px 11px;border-radius:6px;font-size:13px;line-height:1.4;box-shadow:0 4px 14px rgba(0,0,0,.3)}#tip .tp{font-weight:700;margin-left:4px}.seg{top:0!important;height:16px!important;cursor:default}.seg:hover{filter:brightness(1.25);outline:1px solid var(--ink);z-index:2}
@@ -53,7 +53,7 @@ aside{max-height:calc(100vh - 16px);overflow:auto}@media(max-width:860px){aside{
 #rows .r[style*="--c1"]:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c1) 26%,transparent),color-mix(in srgb,var(--c2) 18%,transparent));box-shadow:inset 8px 0 0 var(--c1),inset 14px 0 0 var(--c2)}
 header{position:relative}.themebtn{position:absolute;top:30px;right:24px;width:40px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}.themebtn svg{display:block}@media(max-width:640px){.themebtn{position:static;margin:0 0 10px}}
 :root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
-.mdl{font-size:17px!important;font-weight:500!important}.tabs#models{margin-bottom:6px}.yh{font-family:Signika,system-ui,sans-serif;font-size:18px;display:block;margin:2px 4px}.stabs{display:flex;gap:6px;margin-bottom:12px}.stabs button{flex:1;font-weight:500;padding:6px 10px}.stabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}[hidden]{display:none!important}
+.mdl{font-size:17px!important;font-weight:500!important}.tabs#models{margin-bottom:6px}.yh{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:18px;display:block;margin:2px 4px}.stabs{display:flex;gap:6px;margin-bottom:12px}.stabs button{flex:1;font-weight:500;padding:6px 10px}.stabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}[hidden]{display:none!important}
 </style></head><body>
 <header><button id="theme" class="themebtn" type="button" aria-pressed="false">Dark Mode</button><h1>CBB Tournament Predictor <span class="beta">BETA</span></h1><p>Each criterion from the sheet has a cutoff and a point value. Change either one and the teams re-score and re-rank instantly. Bars show where each team's points come from.</p></header>
 <main><aside><div class="stabs" role="tablist"><button id="stS" role="tab" aria-selected="true">Settings</button><button id="stC" role="tab" aria-selected="false">Champions</button></div><div id="pS"><h2>Criteria And Points</h2><p class="sub" id="blurb"></p><div id="ctl"></div><div class="tools" style="margin:12px 0 0"><button id="rs">Reset To Defaults</button></div></div><div id="pC" hidden><div id="champ"></div></div></aside>
