@@ -491,7 +491,7 @@ $('#bkbtn').onclick=openBK;document.addEventListener('keydown',e=>{if(e.key==='E
 (function(){try{const B=bkBuild(SPD['2027'],CONF,76,BK_AQ27),RC4=['E','S','M','W'],key=n=>spCanon(n==='NC State'?'N.C. State':nm(n)),reg={};
 for(let g=0;g<4;g++)for(let l=1;l<=16;l++){const sl=B.R[g][l];if(sl)sl.teams.forEach(t=>{if(!t.ph&&!t.ex)reg[key(t.n)]=RC4[g]})}
 Y['2027'].rows.forEach(r=>{r[13]=reg[key(r[0].replace(/\s+\d+$/,''))]||''});
-SEMI['2027']=B.F4.map(p=>[RC4[p[0]],RC4[p[1]]]);Y['2027'].rg=1}catch(e){console.error('regions',e)}})();
+SEMI['2027']=B.F4.map(p=>[RC4[p[0]],RC4[p[1]]]);Y['2027'].rg=1;const m0=model,k0=K;M.ff.dr=defRanks('ff');M.champ.dr=defRanks('champ');model=m0;K=k0}catch(e){console.error('regions',e)}})();
 
 function go(y,sel){cur=y;draw();setTimeout(()=>{const e=document.querySelector(sel);if(e)e.scrollIntoView({block:'center',behavior:'smooth'})},30)}
 /* Semifinal rows: shorten long team names so the seed, star and region tag stay on one line */
