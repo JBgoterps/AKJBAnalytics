@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akjbanalytics.vercel.app/sitemap.xml
