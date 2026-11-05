@@ -99,7 +99,7 @@ animation:tkGlint 6s ease-in-out infinite,tkFlow 7s linear infinite;filter:drop-
 
 <style id="spm-css">
 .spt tbody tr{cursor:pointer}
-#spm{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,14,28,.55);overflow:auto}
+#spm{position:fixed;inset:0;z-index:32;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,14,28,.55);overflow:auto}
 #spm.on{display:flex}
 .spm-card{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;width:min(720px,100%);max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.4)}
 .spm-hd{position:relative;display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(90deg,color-mix(in srgb,var(--c1) 30%,var(--panel)),color-mix(in srgb,var(--c2) 22%,var(--panel)));box-shadow:inset 8px 0 0 var(--c1),inset 14px 0 0 var(--c2);padding-left:30px;border-bottom:1px solid var(--line)}
@@ -144,6 +144,18 @@ animation:tkGlint 6s ease-in-out infinite,tkFlow 7s linear infinite;filter:drop-
 .bk-bd h3{margin:20px 0 8px;font-size:15px}
 .bk-ff{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .bk-f{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--bg);font-size:14px}.bk-f i{color:var(--mute);font-size:12px}.bk-f b{width:100%;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+.bk-lns{display:flex;flex-direction:column;gap:6px}
+.bk-ln{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.bk-lh{width:44px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--bg);font-weight:700;font-size:18px;border-right:1px solid var(--line)}
+.bk-lt{display:flex;flex-wrap:wrap;gap:8px 10px;padding:10px 12px;align-items:center}
+.bk-c{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:500;padding:8px 14px 8px 26px;border-radius:6px;white-space:nowrap;background:linear-gradient(90deg,color-mix(in srgb,var(--c1) 26%,transparent),color-mix(in srgb,var(--c2) 18%,transparent));box-shadow:inset 8px 0 0 var(--c1),inset 14px 0 0 var(--c2)}
+.bk-c.bk-lk{cursor:pointer}.bk-c.bk-lk:hover{filter:brightness(.93)}.bk-c.bk-lk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.bk-c.bk-tbd{background:var(--bg);box-shadow:none;padding-left:14px}
+.bk-c small{font-size:12px;font-weight:400;color:color-mix(in srgb,var(--ink) 58%,transparent)}
+.bk-c em{font-style:normal;font-size:12px;color:var(--mute)}
+.bk-c .bkb{font-weight:700}
+.bk-gp{display:inline-flex;align-items:center;gap:6px;padding:3px;border-radius:8px;background:color-mix(in srgb,var(--gold-bg) 40%,transparent);border:1px dashed var(--line)}
+.bk-gp b{font-size:10px;text-transform:uppercase;color:var(--mute)}
 .bk-regs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .bk-reg{border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .bk-rh{display:flex;justify-content:space-between;align-items:baseline;padding:8px 12px;background:var(--bg);font-weight:700;border-bottom:1px solid var(--line)}.bk-rh small{font-weight:400;color:var(--mute);font-size:12px}
@@ -278,7 +290,7 @@ animation:tkGlint 6s ease-in-out infinite,tkFlow 7s linear infinite;filter:drop-
 
 <div class="ab-sec"><div><h3>Good to know</h3></div><div>
 <p>Scores compare teams under the rules shown. They do not guarantee what happens on the court.</p>
-<p>The 2027 numbers are preseason projections and will move as the season goes on. Data comes from KenPom, Torvik, ESPN's projections from Joe Lunardi (conference champions in Bracketology) and the Internet Archive for older seasons.</p></div></div>
+<p>The 2027 numbers are preseason projections and will move as the season goes on. Data comes from KenPom, Torvik and the Internet Archive for older seasons.</p></div></div>
 </section>
 <div id="tip" role="tooltip"></div><footer class="foot">Data gathered from <a href="https://kenpom.com" target="_blank" rel="noopener noreferrer">KenPom</a>. Historical data gathered using Internet Archive. Created via Claude Code.</footer><script>
 
@@ -442,7 +454,7 @@ el.innerHTML=`<div class="spm-card" role="dialog" aria-modal="true" aria-labelle
 <p class="spm-ft">Bar length is relative to the highest-scoring team in each model and follows your current sidebar settings.</p></div></div>`;
 spLast=document.activeElement;el.classList.add('on');el.querySelector('.spm-x').focus()}
 function closeSP(){const el=$('#spm');if(!el||!el.classList.contains('on'))return;el.classList.remove('on');if(spLast&&spLast.focus&&document.contains(spLast))spLast.focus()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSP()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('#spm');if(m&&m.classList.contains('on'))e.preventDefault();closeSP()}});
 $('#spt').addEventListener('click',e=>{const tr=e.target.closest('tbody tr');if(tr)openSP(tr.dataset.i)});
 $('#spt').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const tr=e.target.closest&&e.target.closest('tbody tr');if(tr&&e.target===tr){e.preventDefault();openSP(tr.dataset.i)}}});
 /* Methodology menu */
@@ -474,18 +486,22 @@ const BK_NAT={"Duke":"East","UConn":"East","Virginia":"East","St. John's":"East"
 const BK_Q={1:0,16:0,8:0,9:0,5:1,12:1,4:1,13:1,6:2,11:2,3:2,14:2,7:3,10:3,2:3,15:3};
 const BK_ORD=[[1,16],[8,9],[5,12],[4,13],[6,11],[3,14],[7,10],[2,15]];
 const BK_AQ27=[
-["High Point",12,"Big South","East","330072","FFFFFF"],["Wichita St",12,"American","Midwest","000000","FFCD00"],
-["McNeese",13,"Southland","South","0055A5","FFD100"],["UNC Wilmington",13,"CAA","East","006666","FDC82F"],["Miami OH",13,"MAC","Midwest","C8102E","FFFFFF"],
-["UC San Diego",14,"Big West","West","182B49","C69214"],["Liberty",14,"CUSA","East","002D62","C8102E"],["Harvard",14,"Ivy","East","A51C30","000000"],["Murray St",14,"MVC","South","002144","FFB81C"],
-["Montana St",15,"Big Sky","West","003875","FFC72C"],["Wright St",15,"Horizon","Midwest","00573F","FFCD00"],["Furman",15,"SoCon","South","582C83","FFFFFF"],["James Madison",15,"Sun Belt","East","450084","CBB677"],["Merrimack",15,"MAAC","East","0C2340","FFB81C"],["N Dakota St",15,"Summit","Midwest","0A5640","FFC72C"],
-["Queens",16,"ASUN","South","00205B","FDB927"],["Tennessee St",16,"OVC","South","0F2D69","FFFFFF"],["Vermont",16,"America East","East","154734","FFC72C"],["American",16,"Patriot","East","C8102E","0033A0"],["B-CU",16,"SWAC","South","800000","FFCC00"],["Long Island",16,"NEC","East","1D4F91","FFB81C"],["C Arkansas",16,"UAC","South","4F2D7F","999999"],["Howard",16,"MEAC","East","003A63","E51937"]];
-const BK_PAIRS27=[["C Arkansas","Howard"],["Queens","Tennessee St"],["Vermont","American"],["B-CU","Long Island"],["Montana St","Wright St"],["James Madison","Merrimack"]];
+["Wichita St",12,"American","Midwest","000000","FFCD00"],
+["High Point",13,"Big South","East","330072","FFFFFF"],["Miami OH",13,"MAC","Midwest","C8102E","FFFFFF"],["McNeese",13,"Southland","South","0055A5","FFD100"],["Murray St",13,"MVC","South","002144","FFB81C"],
+["UNC Wilmington",14,"CAA","East","006666","FDC82F"],["UC San Diego",14,"Big West","West","182B49","C69214"],["Western Kentucky",14,"CUSA","South","C8102E","FFFFFF"],["Harvard",14,"Ivy","East","A51C30","000000"],
+["James Madison",15,"Sun Belt","East","450084","CBB677"],["N Dakota St",15,"Summit","Midwest","0A5640","FFC72C"],["Furman",15,"SoCon","South","582C83","FFFFFF"],["Wright St",15,"Horizon","Midwest","00573F","FFCD00"],["Merrimack",15,"MAAC","East","0C2340","FFB81C"],["Montana St",15,"Big Sky","West","003875","FFC72C"],
+["C Arkansas",16,"UAC","South","4F2D7F","999999"],["Queens",16,"ASUN","South","00205B","FDB927"],["Howard",16,"MEAC","East","003A63","E51937"],["Tennessee St",16,"OVC","South","0F2D69","FFFFFF"],["Vermont",16,"America East","East","154734","FFC72C"],["American",16,"Patriot","East","C8102E","0033A0"],["B-CU",16,"SWAC","South","800000","FFCC00"],["Long Island",16,"NEC","East","1D4F91","FFB81C"]];
+const BK_PAIRS27=[["Maryland","Providence"],["C Arkansas","Howard"],["Queens","Tennessee St"],["Vermont","American"],["B-CU","Long Island"],["Montana St","Wright St"],["James Madison","Merrimack"]];
+const BK_ORD27=["Maryland","Providence","Santa Clara","Grand Canyon","Wichita St","High Point","Miami OH","McNeese","Murray St","UNC Wilmington","UC San Diego","Western Kentucky","Harvard","James Madison","N Dakota St","Furman","Wright St","Merrimack","Montana St","C Arkansas","Queens","Howard","Tennessee St","Vermont","American","B-CU","Long Island"];
+const BK_DISP={"Wichita St":"Wichita State","Murray St":"Murray State","N Dakota St":"North Dakota State","Wright St":"Wright State","Montana St":"Montana State","Tennessee St":"Tennessee State","C Arkansas":"Central Arkansas","B-CU":"Bethune Cookman","UNC Wilmington":"UNC Wilmington"};
+const bkN=n=>BK_DISP[n]||fixSt(n);
 const BK_D=(nat,g)=>BK_NEAR[nat].indexOf(BK_REG[g]);
 const BK_PERMS=(()=>{const o=[];const f=(a,r)=>{if(!r.length)o.push(a);else r.forEach((x,i)=>f(a.concat(x),r.slice(0,i).concat(r.slice(i+1))))};f([],[0,1,2,3]);return o})();
 function bkBuild(SProws,CF,FIELD,EXTRA){
  FIELD=FIELD||76;
- const T=SProws.filter(r=>r[9]!=null).map(r=>({n:r[1],rk:r[0],ln:Math.min(16,Math.max(1,r[9])),c1:r[10],c2:r[11],cf:CF[r[1]]||null,nat:BK_NAT[r[1]]||null,champ:r[12],aq:!!r[12],ph:false}));
+ const T=SProws.filter(r=>r[9]!=null).map(r=>({n:r[1],rk:r[0],sr:r[0],ln:Math.min(16,Math.max(1,r[9])),c1:r[10],c2:r[11],cf:CF[r[1]]||null,nat:BK_NAT[r[1]]||null,champ:r[12],aq:!!r[12],ph:false}));
  (EXTRA||[]).forEach((e,i)=>T.push({n:e[0],rk:200+i,ln:e[1],c1:e[4],c2:e[5],cf:e[2],nat:e[3],champ:1,aq:true,ph:false,ex:true}));
+ if(EXTRA)T.forEach(t=>{const k=BK_ORD27.indexOf(t.n);if(k>=0)t.rk=100+k});
  const lines=Array.from({length:17},()=>[]);let carry=[];
  for(let l=1;l<=16;l++){let L=carry.concat(T.filter(t=>t.ln===l)).sort((a,b)=>a.rk-b.rk);carry=[];if(L.length>8){carry=L.slice(8);L=L.slice(0,8)}L.forEach(t=>t.ln=l);lines[l]=L}
  if(EXTRA){for(let l=1;l<=16;l++){while(lines[l].length<4){
@@ -502,7 +518,7 @@ function bkBuild(SProws,CF,FIELD,EXTRA){
  const S=Array.from({length:17},()=>[]),games=[];
  for(let l=1;l<=16;l++){const L=lines[l],g=L.length-4;let gp=[];
   if(g>0){
-   if(EXTRA&&l>=13){const ps=BK_PAIRS27.map(p=>p.map(n=>L.find(t=>t.n===n))).filter(p=>p[0]&&p[1]);if(ps.length===g)gp=ps.map(p=>p[0].rk<p[1].rk?p:[p[1],p[0]])}
+   if(EXTRA&&l>=12){const ps=BK_PAIRS27.map(p=>p.map(n=>L.find(t=>t.n===n))).filter(p=>p[0]&&p[1]);if(ps.length===g)gp=ps.map(p=>p[0].rk<p[1].rk?p:[p[1],p[0]])}
    if(!gp.length){let pool=L.filter(t=>!t.aq);if(pool.length<2*g||l>=13)pool=L.slice();const pl=pool.slice(pool.length-2*g);for(let i=0;i<g;i++)gp.push([pl[i],pl[2*g-1-i]])}}
   const used=new Set([].concat(...gp));
   S[l]=L.filter(t=>!used.has(t)).map(t=>({l,teams:[t],ts:t.ts}));
@@ -552,23 +568,18 @@ function bkBuild(SProws,CF,FIELD,EXTRA){
 function bkRow(t,l,first){
  const s=`<span class="bk-s">${first?l:''}</span>`;
  if(t.ph)return `<div class="bk-t bk-tbd">${s}<i class="bk-chip" style="background:var(--line)"></i><span class="bk-nm">${t.n}</span><span class="bk-ts">#${t.ts}</span></div>`;
- return `<div class="bk-t">${s}<i class="bk-chip" style="background:linear-gradient(90deg,#${t.c1} 50%,#${t.c2} 50%)"></i><span class="bk-nm${t.champ?' bkb':''}">${fixSt(t.n)}${t.cf?` <small>(${t.cf})</small>`:''}</span><span class="bk-ts">#${t.ts}</span></div>`}
-function bkSlot(s,l){return `<div class="bk-sl${s.game?' bk-gm':''}">`+s.teams.map((t,i)=>bkRow(t,l,i===0)).join('')+(s.game?'<div class="bk-tag">First Round winner</div>':'')+'</div>'}
+ return `<div class="bk-t">${s}<i class="bk-chip" style="background:linear-gradient(90deg,#${t.c1} 50%,#${t.c2} 50%)"></i><span class="bk-nm${t.champ?' bkb':''}">${bkN(t.n)}${t.cf?` <small>(${t.cf})</small>`:''}</span><span class="bk-ts">#${t.ts}</span></div>`}
+function bkSlot(s,l){return `<div class="bk-sl${s.game?' bk-gm':''}">`+s.teams.map((t,i)=>bkRow(t,l,i===0)).join('')+(s.game?'<div class="bk-tag">Opening Round winner</div>':'')+'</div>'}
 function bkHtml(B){
- const R=B.R,names=BK_REG,ord=[B.F4[0][0],B.F4[0][1],B.F4[1][0],B.F4[1][1]];
- const one=g=>R[g][1].teams[0];
- const ff=B.F4.map((p,i)=>`<div class="bk-f"><b>Semifinal ${i+1}</b><span>${names[p[0]]} (${fixSt(one(p[0]).n)})</span><i>vs</i><span>${names[p[1]]} (${fixSt(one(p[1]).n)})</span></div>`).join('');
- const regs=ord.map(g=>`<div class="bk-reg"><div class="bk-rh"><span>${names[g]} Region</span><small>Seed-list total ${B.tot[g]}</small></div>`+BK_ORD.map(([a,b])=>`<div class="bk-mu">${bkSlot(R[g][a],a)}${bkSlot(R[g][b],b)}</div>`).join('')+'</div>').join('');
- const gm=B.games.map(s=>{let g=0;for(;g<4;g++)if(R[g][s.l]===s)break;return `<div class="bk-g"><span class="bk-gl">${names[g]} · ${s.l} seed</span><span>${s.teams.map(t=>t.ph?`<i class="bk-tbd">${t.n}</i>`:fixSt(t.n)).join(' vs ')}</span></div>`}).join('');
- const bad=B.o.f3+B.o.meet+B.o.max2+B.o.quad;
- const pre=spY==='2027';
- return `<div class="bk-ff">${ff}</div><div class="bk-regs">${regs}</div><h3>First Round games (${B.games.length})</h3><div class="bk-gs">${gm}</div>`+
- `<h3>How this bracket was built</h3><ul class="bk-ul"><li><b>Field:</b> ${B.total} teams. ${B.real-B.aqN} come from the HURLEY Rankings' Projected Seeds; ${B.aqN?`the other ${B.aqN} are the automatic qualifiers Joe Lunardi projects (ESPN, updated 10/27/26), placed on his seed lines.`:`the other ${B.ph} spots are placeholders for conference champions not yet known.`} The field is cut to 64 by ${B.games.length} First Round games (the 6 last at-large teams' games and 6 lowest automatic-qualifier games, like the old First Four).</li>`+
- `${B.mv.length?`<li><b>Moved one seed line:</b> ${B.mv.map(t=>fixSt(t.n)+(t.mv>0?' (down':' (up')+' to a No. '+t.ln+')').join(', ')}, to keep four teams on every line, which the rules allow.</li>`:''}`+`<li><b>Seed list:</b> teams are ordered by projected seed line, then HURLEY rank. The # beside each name is its true seed on that list.</li>`+
- `<li><b>Placement:</b> the four No. 1 seeds go to their natural regions, Final Four semifinals pair the top No. 1 seed's region with the fourth's, and the second with the third. Other teams stay as close to their natural region as possible.</li>`+
- `<li><b>Balance:</b> lines 1-4 true-seed totals per region are ${B.sums.join(', ')} (spread ${B.sp}; the committee target is 5 or fewer).</li>`+
- `<li><b>Conference rules:</b> the first three teams from a conference are in different regions; no more than two per region and no meeting before the regional final unless a conference has nine or more teams (${Object.keys(B.BIG).filter(k=>B.BIG[k]).join(', ')||'none here'}); one team per group of four on lines 1-4 and 13-16. ${bad?`<b>${bad} conflict${bad>1?'s':''} could not be resolved and ${bad>1?'were':'was'} waived</b>, as the rules allow.`:'All of these are satisfied in this bracket.'}</li>`+
- `<li><b>Not modeled:</b> host sites, the three-game facility limit, home-crowd rules for the top five lines, and rematch avoidance, since none of that data is in the rankings. Natural regions are geographic estimates.</li></ul>`}
+ const R=B.R;
+ const lines=[];for(let l=1;l<=16;l++){const sl=[];for(let g=0;g<4;g++){const x=R[g][l];if(x)sl.push(x)}sl.sort((a,b)=>a.ts-b.ts);lines.push([l,sl])}
+ const cc=t=>{let c=[t.c1,t.c2];try{if(!t.ex){const k=COLORS[norm(t.n)];if(k)c=k}}catch(e){}return `--c1:#${c[0]};--c2:#${c[1]};`};
+ const chip=t=>t.ph?`<span class="bk-c bk-tbd">${t.n}<em>#${t.ts}</em></span>`:`<span class="bk-c${t.ex||!t.sr?'':' bk-lk'}" style="${cc(t)}"${t.ex?'':` data-sp="${t.sr}" tabindex="0" role="button" aria-label="${bkN(t.n)}: open HURLEY details"`}><span class="bk-cn${t.champ?' bkb':''}">${bkN(t.n)}${t.cf?` <small>(${t.cf})</small>`:''}</span><em>#${t.ts}</em></span>`;
+ const seeds=lines.map(([l,sl])=>`<div class="bk-ln"><div class="bk-lh">${l}</div><div class="bk-lt">`+sl.map(x=>x.game?`<span class="bk-gp">${x.teams.map(chip).join('<b>vs</b>')}</span>`:chip(x.teams[0])).join('')+'</div></div>').join('');
+ const gm=B.games.slice().sort((a,b)=>a.ts-b.ts).map(s=>`<div class="bk-g"><span class="bk-gl">${s.l} seed</span><span>${s.teams.map(t=>t.ph?`<i class="bk-tbd">${t.n}</i>`:bkN(t.n)).join(' vs ')}</span></div>`).join('');
+ return `<div class="bk-lns">${seeds}</div><h3>Opening Round games (${B.games.length})</h3><div class="bk-gs">${gm}</div>`+
+ `<h3>How this bracket was built</h3><ul class="bk-ul"><li><b>Field:</b> ${B.total} teams. ${B.real-B.aqN} come from the HURLEY Rankings' Projected Seeds; ${B.aqN?`the other ${B.aqN} are projected automatic qualifiers from the other conferences.`:`the other ${B.ph} spots are placeholders for conference champions not yet known.`} The field is cut to 64 by ${B.games.length} Opening Round games (like the old First Four).</li>`+
+ `<li><b>Seed list:</b> teams are ordered by projected seed line, then HURLEY rank. The # beside each name is its true seed on that list. Teams in a Opening Round game share a line and the winner advances.</li></ul>`}
 function openBK(){
  let el=$('#bk');
  if(!el){el=document.createElement('div');el.id='bk';
@@ -576,11 +587,13 @@ function openBK(){
   el.addEventListener('click',e=>{if(e.target===el||e.target.closest('.bk-x'))closeBK()});document.body.appendChild(el)}
  const B=bkBuild(SP,spCf(),76,spY==='2027'?BK_AQ27:null);
  el.querySelector('small').textContent=`${spY==='2027'?'2027 Preseason':spY+' Season'} projection · built from the Projected Seeds in the HURLEY Rankings`;
- el.querySelector('.bk-bd').innerHTML=bkHtml(B);el.querySelector('.bk-bd').scrollTop=0;
+ el.querySelector('.bk-bd').innerHTML=bkHtml(B);
+ if(!el._lk){el._lk=1;const go=e=>{const c=e.target.closest('[data-sp]');if(c&&el.contains(c)){spLast=c;openSP(c.dataset.sp)}};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target.closest('[data-sp]')){e.preventDefault();go(e)}}})}
+el.querySelector('.bk-bd').scrollTop=0;
  bkLast=document.activeElement;el.classList.add('on');el.querySelector('.bk-x').focus()}
 let bkLast=null;
 function closeBK(){const el=$('#bk');if(!el||!el.classList.contains('on'))return;el.classList.remove('on');if(bkLast&&bkLast.focus&&document.contains(bkLast))bkLast.focus()}
-$('#bkbtn').onclick=openBK;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBK()});
+$('#bkbtn').onclick=openBK;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!e.defaultPrevented)closeBK()});
 /* 2027 preseason regions come from the Bracketology in the HURLEY Rankings */
 (function(){try{const B=bkBuild(SPD['2027'],CONF,76,BK_AQ27),RC4=['E','S','M','W'],key=n=>spCanon(n==='NC State'?'N.C. State':nm(n)),reg={};
 for(let g=0;g<4;g++)for(let l=1;l<=16;l++){const sl=B.R[g][l];if(sl)sl.teams.forEach(t=>{if(!t.ph&&!t.ex)reg[key(t.n)]=RC4[g]})}
